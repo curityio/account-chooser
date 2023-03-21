@@ -1,5 +1,8 @@
 # AccountChooser Authentication Action Plugin
 
+[![quality](https://img.shields.io/badge/quality-example-red)](https://curity.io/resources/code-examples/status/)
+[![availabitly](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
+
 An authentication action plugin for the Curity Identity Server that allows the user to log in with one of the previously logged in accounts.
 
 ## Building the Plugin
