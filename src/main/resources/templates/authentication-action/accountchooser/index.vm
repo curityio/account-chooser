@@ -1,0 +1,63 @@
+
+#parse("fragments/icon-mappings")
+
+#set($title = "Choose account")
+
+#set ($page_symbol = $page_symbol_authenticate_desktop)
+
+#define ($_body)
+
+    <div>
+        #if($hasActiveSessions)
+            <h2>Choose an account you want to log in with</h2>
+        #else
+            <h2>Choose an authentication method</h2>
+        #end
+
+        <form action="$_actionUrl" method="POST">
+            #foreach($_authenticator in $authenticators)
+                #if($_authenticator.getSubject() != $null)
+                    <div class="form-field mb1">
+                        <button type="submit" id="$_authenticator.getAcr()" class="button-choose-account button button-primary button-fullwidth button-social button-$_authenticator.getAcr()">
+                            <i class="icon #iconClassName($_authenticator.getType())"></i>
+                            $_authenticator.getSubject()
+                        </button>
+                    </div>
+                #end
+            #end
+
+            #if($hasActiveSessions)
+                <h3>Or log in with one of the options below</h3>
+            #end
+
+            #foreach($_authenticator in $authenticators)
+                <div class="form-field mb1">
+                    <button type="submit" id="$_authenticator.getAcr()" class="button-force-login button button-primary button-fullwidth button-social button-$_authenticator.getAcr()">
+                        <i class="icon #iconClassName($_authenticator.getType())"></i>
+                        $_authenticator.getDescription()
+                    </button>
+                </div>
+            #end
+
+            <input type="hidden" id="chosen_acr" value="" name="chosen_acr" />
+            <input type="hidden" id="force_authentication" value="false" name="force_authentication" />
+        </form>
+
+        #parse("fragments/jquery")
+        <script type="text/javascript" $!nonceAttr>
+            jQuery(document).ready(function ($) {
+                $(".button-choose-account").on("click", function(e) {
+                    $("#chosen_acr").val(this.id);
+                });
+
+                $(".button-force-login").on("click", function(e) {
+                    $("#chosen_acr").val(this.id);
+                    $("#force_authentication").val("true");
+                });
+            });
+        </script>
+    </div>
+
+#end
+
+#parse("layouts/default")
