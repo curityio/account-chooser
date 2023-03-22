@@ -25,7 +25,9 @@ The plugin needs a list of authenticator ACRs. This will be the authenticators t
 
 ![Edit the action](docs/edit-action.jpg)
 
-### Note on The Gateway Authenticator
+Note that currently, in the Curity Identity Server one authenticator can have one active SSO session. If you want to allow more users to be logged in with the same method (e.g. an HTML form authenticator) then you would have to copy the authenticator and configure it with a different ACR. You will need as many copies of the authenticator as many users you want to allow to be logged in simultaneously with the given authenticator.
+
+### Note on the Authenticator Used With the Action
 
 The choose account action can be applied to any authenticator, but the anonymous authenticator is recommended. If the action is applied to any other authenticator (essentially becoming a two-factor authentication), then additional checks would have to be made to verify that the subject chosen with this action actually corresponds to the subject from the parent authenticator. Currently, this action does not perform such checks.
 
