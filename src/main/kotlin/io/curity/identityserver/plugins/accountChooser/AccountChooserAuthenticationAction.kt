@@ -49,7 +49,7 @@ class AccountChooserAuthenticationAction(configuration: AccountChooserAuthentica
         val transactionIdFromSession = sessionManager.get(TRANSACTION_ID)?.getValueOfType(String::class.java)
 
         if (transactionIdFromSession == context.authenticationTransactionId) {
-            completeChooseAccountAction(context)
+            return completeChooseAccountAction(context)
         }
 
         prepareDataForChooseAccountPrompt(context)
